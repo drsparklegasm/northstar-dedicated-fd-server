@@ -1,0 +1,33 @@
+version: "3"
+services:
+  northstar-attrition:
+    image: nsmp-custom
+    pull_policy: always
+    environment:
+      NS_PORT: 37015
+      # uncomment for Northstar v1.12 and older
+      #NS_PORT_AUTH: 8081
+      NS_SERVER_NAME: "[US-WEST] Solids Private Server"
+      NS_SERVER_DESC: "Testing docker server"
+      NS_EXTRA_ARGUMENTS: |
+        +setplaylist private_match # Attrition
+        +mp_gamemode fd_easy # Attrition
+        +map mp_homestead
+        +ns_server_password "basterds"
+        +ns_private_match_countdown_length 0
+        +ns_should_return_to_lobby 0
+        +ns_auth_allow_insecure 1
+        +net_compresspackets_minsize 64
+        +net_compresspackets 1
+        +spewlog_enable 0
+        +sv_maxrate 127000
+        # These are my custom edits
+        +max_players 8
+        +rcon_password solidmixer
+        +sv_rcon_sendlogs 1
+    volumes:
+      - /media/files/titanfall2:/mnt/titanfall:ro
+      - /media/files/mods:/mnt/mods:ro
+    ports:
+      - "37015:37015/udp"
+    restart: "unless-stopped"
