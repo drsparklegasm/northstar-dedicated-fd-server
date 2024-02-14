@@ -12,3 +12,4 @@ docker build . -t northstar-fd-server
 
 docker-compose up &
 
+# And you're done!
